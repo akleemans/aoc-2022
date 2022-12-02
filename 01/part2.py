@@ -3,6 +3,8 @@ import sys
 sys.path.append("..")
 import utils
 
+# Day 1: Calorie Counting
+
 data = utils.read_str_list()
 
 current_count = 0
