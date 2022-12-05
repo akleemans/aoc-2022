@@ -15,11 +15,11 @@ def read_int_matrix(filename: str = 'input.txt') -> List[List[int]]:
 
 def read_str_list(filename: str = 'input.txt') -> List[str]:
     with open(filename) as read_file:
-        data = [x.strip() for x in read_file.readlines()]
+        data = [x.rstrip('\n') for x in read_file.readlines()]
     return data
 
 
 def read_str_matrix(filename: str = 'input.txt') -> List[List[str]]:
     with open(filename) as read_file:
-        data = [[y for y in x.strip().split(' ')] for x in read_file.readlines()]
+        data = [[y for y in x.rstrip('\n').split(' ')] for x in read_file.readlines()]
     return data
