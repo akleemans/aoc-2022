@@ -112,3 +112,6 @@ venv.bak/
 
 # IntelliJ
 .idea/
+
+# Exclude inputs
+**/input.txt
