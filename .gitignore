@@ -116,5 +116,6 @@ venv.bak/
 # Exclude inputs
 **/input.txt
 
-
+# Binaries
 *.bin
+**/run.build/
