@@ -17,8 +17,10 @@ if __name__ == '__main__':
     with open('input.txt') as read_file:
         data = [x.rstrip('\n') for x in read_file.readlines()]
 
-    assert part1(test_data) == 0, f'Part 1 returned {part1(test_data)}'
+    part1_test_result = part1(test_data)
+    assert part1_test_result == 0, f'Part 1 returned {part1_test_result}'
     print('Part 1:', part1(data))
 
-    assert part2(test_data) == 0, f'Part 2 returned {part2(test_data)}'
+    part2_test_result = part2(test_data)
+    assert part2_test_result == 0, f'Part 2 returned {part2_test_result}'
     print('Part 2:', part2(data))
