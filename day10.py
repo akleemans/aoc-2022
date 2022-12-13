@@ -154,7 +154,7 @@ command_duration = {'addx': 2, 'noop': 1}
 
 def part1(data: List[str]):
     signal_strengths = 0
-    cycle = 0
+    cycle = 1
     instruction_idx = 0
     current_command = ''
     current_duration = 0
@@ -172,9 +172,9 @@ def part1(data: List[str]):
             current_duration += 1
 
         # Catch
-        if (cycle - 19) % 40 == 0:
+        if (cycle - 20) % 40 == 0:
             # print('cycle:', cycle, 'X:', X)
-            signal_strengths += X * (cycle + 1)
+            signal_strengths += X * cycle
 
         # Process command
 
@@ -210,7 +210,7 @@ def part2(data: List[str]) -> str:
             current_duration += 1
 
         # Draw
-        if cycle % 40 in [X-1, X, X+1]:
+        if cycle % 40 in [X - 1, X, X + 1]:
             display += '#'
         else:
             display += '.'
@@ -227,21 +227,20 @@ def part2(data: List[str]) -> str:
 
     return display
 
-if __name__ == '__main__':
-    with open('input.txt') as read_file:
+
+def main():
+    with open('inputs/day10.txt') as read_file:
         data = [x.rstrip('\n') for x in read_file.readlines()]
 
     assert part1(test_data) == 13140, f'Part 1 returned {part1(test_data)}'
-    print('Part 1:', part1(data))
+    part1_result = part1(data)
+    assert part1_result == 14240, f'Part 1 returned {part1_result}'
 
     part_example_solution = '##..##..##..##..##..##..##..##..##..##..###...###...###...###...###...###...###.####....####....####....####....####....#####.....#####.....#####.....#####.....######......######......######......###########.......#######.......#######.....'
     assert part2(test_data) == part_example_solution, f'Part 2 returned {part2(test_data)}'
-    print('Part 2:', part2(data))
+    part2_result = part2(data)
+    assert part2_result == '###..#....#..#.#....#..#.###..####.#..#.#..#.#....#..#.#....#.#..#..#....#.#..#.#..#.#....#..#.#....##...###....#..####.###..#....#..#.#....#.#..#..#..#...#..#.#....#....#..#.#....#.#..#..#.#....#..#.#....####..##..####.#..#.###..####.#..#.', f'Part 2 returned {part2_result}'
 
-# Solution:
-###..#....#..#.#....#..#.###..####.#..#.
-#..#.#....#..#.#....#.#..#..#....#.#..#.
-#..#.#....#..#.#....##...###....#..####.
-###..#....#..#.#....#.#..#..#..#...#..#.
-#....#....#..#.#....#.#..#..#.#....#..#.
-#....####..##..####.#..#.###..####.#..#.
+
+if __name__ == '__main__':
+    main()

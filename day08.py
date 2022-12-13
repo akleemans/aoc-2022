@@ -102,12 +102,18 @@ def part2(data: List[str]):
     return highest_score
 
 
-if __name__ == '__main__':
-    with open('input.txt') as read_file:
+def main():
+    with open('inputs/day08.txt') as read_file:
         data = [x.rstrip('\n') for x in read_file.readlines()]
 
     assert part1(test_data) == 21, f'Part 1 returned {part1(test_data)}'
-    print('Part 1:', part1(data))
+    part1_result = part1(data)
+    assert part1_result == 1533, f'Part 1 returned {part1_result}'
 
     assert part2(test_data) == 8, f'Part 2 returned {part2(test_data)}'
-    print('Part 2:', part2(data))
+    part2_result = part2(data)
+    assert part2_result == 345744, f'Part 2 returned {part2_result}'
+
+
+if __name__ == '__main__':
+    main()

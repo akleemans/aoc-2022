@@ -1,5 +1,4 @@
 import math
-import time
 
 # Day 12: Hill Climbing Algorithm
 
@@ -63,7 +62,7 @@ def part1(data):
     # Search start
     start = search_letter('S', data)
     end = search_letter('E', data)
-    print('Start:', start, 'end:', end)
+    # print('Start:', start, 'end:', end)
 
     distances = [[math.inf for x in range(w)] for y in range(h)]
     queue = [(start, 0)]
@@ -77,10 +76,10 @@ def part1(data):
         distances[pos[0]][pos[1]] = distance
         # print('Initial distance:', distances[pos[0]][pos[1]])
         queue.extend([((n[0], n[1]), distance + 1) for n in add_nodes(pos, data, distances)])
-        if round % 10000 == 0:
-            print('Queue length:', len(queue))
+        # if round % 10000 == 0:
+        #    print('Queue length:', len(queue))
 
-    print('Took', round, 'rounds')
+    # print('Took', round, 'rounds')
     return distances[end[0]][end[1]]
 
 
@@ -107,16 +106,20 @@ def part2(data):
     return min(shortest_path_candidates)
 
 
-if __name__ == '__main__':
-    t = time.time()
-    with open('input.txt') as read_file:
+def main():
+    with open('inputs/day12.txt') as read_file:
         data = [x.rstrip('\n') for x in read_file.readlines()]
 
     part1_test_result = part1(test_data)
     assert part1_test_result == 31, f'Part 1 returned {part1_test_result}'
-    print('Part 1:', part1(data))
+    part1_result = part1(data)
+    assert part1_result == 330, f'Part 1 returned {part1_result}'
 
     part2_test_result = part2(test_data)
     assert part2_test_result == 29, f'Part 2 returned {part2_test_result}'
-    print('Part 2:', part2(data))
-    print('Finished in', time.time() - t, 's')
+    part2_result = part2(data)
+    assert part2_result == 321, f'Part 2 returned {part2_result}'
+
+
+if __name__ == '__main__':
+    main()

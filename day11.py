@@ -1,4 +1,3 @@
-import time
 from typing import List, Dict, Optional
 
 
@@ -120,7 +119,7 @@ def part1(data):
         for monkey in monkeys:
             monkey.process_items()
 
-    print('Monkeys:', monkeys)
+    # print('Monkeys:', monkeys)
     monkeys = sorted(monkeys, key=lambda m: m.items_inspected, reverse=True)
     return monkeys[0].items_inspected * monkeys[1].items_inspected
 
@@ -129,26 +128,28 @@ def part2(data):
     monkeys = create_monkeys(data, False)
 
     for i in range(10_000):
-        if i % 1000 == 0:
-            print('Round:', i)
         for monkey in monkeys:
             monkey.process_items()
 
-    print('Monkeys:', monkeys)
+    # print('Monkeys:', monkeys)
     monkeys = sorted(monkeys, key=lambda m: m.items_inspected, reverse=True)
     return monkeys[0].items_inspected * monkeys[1].items_inspected
 
 
-if __name__ == '__main__':
-    t = time.time()
-    with open('input.txt') as read_file:
+def main():
+    with open('inputs/day11.txt') as read_file:
         data = [x.rstrip('\n') for x in read_file.readlines()]
 
     part1_test_result = part1(test_data)
     assert part1_test_result == 10605, f'Part 1 returned {part1_test_result}'
-    print('Part 1:', part1(data))
+    part1_result = part1(data)
+    assert part1_result == 54253, f'Part 1 returned {part1_result}'
 
     part2_test_result = part2(test_data)
     assert part2_test_result == 2713310158, f'Part 2 returned {part2_test_result}'
-    print('Part 2:', part2(data))
-    print('Finished in', time.time() - t, 's')
+    part2_result = part2(data)
+    assert part2_result == 13119526120, f'Part 2 returned {part2_result}'
+
+
+if __name__ == '__main__':
+    main()
