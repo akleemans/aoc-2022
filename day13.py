@@ -71,7 +71,8 @@ def part1(data: List[str]):
     return sum(indices)
 
 
-def part2(data: List[str]):
+def part2_simple(data: List[str]):
+    """Original version with BubbleSort"""
     entries = []
     for i in range(0, len(data), 3):
         entries.append(json.loads(data[i]))
@@ -90,8 +91,28 @@ def part2(data: List[str]):
                 entries[i + 1] = entries[i]
                 entries[i] = temp
                 solved = False
-
     return (entries.index(marker1) + 1) * (entries.index(marker2) + 1)
+
+
+def part2(data: List[str]):
+    """Optimized version without sorting, just counting how many elements come before the markers"""
+    data = [json.loads(e) for e in data if len(e) > 1]
+    marker1 = [[2]]
+    idx1 = 1
+    residue_list = []
+    for entry in data:
+        if is_ordered(copy.deepcopy(entry), copy.deepcopy(marker1)):
+            idx1 += 1
+        else:
+            residue_list.append(entry)
+
+    marker2 = [[6]]
+    idx2 = idx1 + 1
+    for entry in residue_list:
+        if is_ordered(copy.deepcopy(entry), copy.deepcopy(marker2)):
+            idx2 += 1
+
+    return idx1 * idx2
 
 
 def main():
