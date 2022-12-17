@@ -64,7 +64,8 @@ def get_bounds(sensors) -> Tuple[int, int]:
     return x_start, x_end
 
 
-def part1(data: List[str], y: int) -> int:
+def part1_simple(data: List[str], y: int) -> int:
+    """Go through y-coordinate and check every point against every Sensor."""
     sensors = get_sensor_list(data)
     x_start, x_end = get_bounds(sensors)
     count = 0
@@ -74,6 +75,45 @@ def part1(data: List[str], y: int) -> int:
             if sensor.in_distance(point) and point != sensor.beacon:
                 count += 1
                 break
+    return count
+
+
+def part1(data: List[str], y: int) -> int:
+    """Calculate impact on y-coordinate per Sensor by projection
+    and checking how much of the available distance is left."""
+    sensors = get_sensor_list(data)
+
+    # Create ranges per Sensor
+    ranges = []
+    for sensor in sensors:
+        p = sensor.pos
+        residue = sensor.distance - abs(p[1] - y)
+        if residue < 0:
+            continue
+        ranges.append((p[0] - residue, p[0] + residue))
+    ranges = sorted(ranges)
+    # print('Ranges:', ranges)
+
+    # Optimization: Merge ranges and directly get remaining range
+
+    beacons = list(set([sensor.beacon for sensor in sensors]))
+    x_start, x_end = get_bounds(sensors)
+    count = 0
+
+    r_idx = 0
+    x = x_start
+    while x < x_end:
+        x += 1
+        for r in ranges[r_idx:]:
+            if r[0] <= x <= r[1]:
+                # Jump straight o upper bound
+                count += (r[1] - x) + 1
+                x = r[1]
+                r_idx += 1
+                break
+
+    # Subtract beacons
+    count -= sum([1 for b in beacons if b[1] == y])
     return count
 
 
