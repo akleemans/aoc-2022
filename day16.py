@@ -1,4 +1,3 @@
-import itertools
 from typing import List, Dict
 
 # Day 16: Proboscidea Volcanium
@@ -56,10 +55,9 @@ class Node:
         self.neighbors: List['Node'] = []
         # {valve: distance}
         self.distances = {}
-        self.opened = False
 
     def __str__(self):
-        return self.name  # + ' [' + str(self.distances.values()) + ']'
+        return self.name
 
     def __repr__(self):
         return self.__str__()
@@ -117,13 +115,14 @@ def dfs(start_node, t: int):
             _dfs(next_node, t - d - 1, [*visited, next_node])
         paths.append(visited)
 
-    _dfs(start_node, t, [])
+    _dfs(start_node, t, [start_node])
     return paths
 
 
 def part1(data: List[str]):
     nodes_dict = get_nodes(data)
     nodes = list(nodes_dict.values())
+    t = 30
 
     # Calculate shortest paths for every node
     for node in nodes:
@@ -131,35 +130,50 @@ def part1(data: List[str]):
         node.distances = {n: d for n, d in all_distances.items() if n.flow_rate > 0 and n != node}
 
     start_node = nodes_dict['AA']
-    all_paths = dfs(start_node, 30)
+    all_paths = dfs(start_node, t)
     # print('Generated', len(paths), 'paths')
 
-    best_score = max([path_score([start_node, *path], 30) for path in all_paths])
+    best_score = max([path_score(path, t) for path in all_paths])
     # print('Returning best score:', best_score)
     return best_score
+
+
+def dfs2(start_node, t: int):
+    total_items = len(start_node.distances.values())
+    min_items = total_items // 2.1
+    first_paths = dfs(start_node, t)
+    # Assuming paths of roughly the same length
+    first_paths = [p for p in first_paths if min_items <= len(p) <= (total_items - min_items)]
+    # print('Found', len(first_paths), 'first paths')
+    paths = []
+
+    def _dfs(node, t: int, visited: List[Node], path1):
+        for next_node, d in node.distances.items():
+            if next_node in [*visited, *path1] or t - d - 1 <= 0:
+                continue
+            _dfs(next_node, t - d - 1, [*visited, next_node], path1)
+        if len(visited) >= min_items:
+            paths.append((path1, visited))
+
+    for path1 in first_paths:
+        _dfs(start_node, t, [start_node], path1)
+    return paths
 
 
 def part2(data: List[str]):
     nodes_dict = get_nodes(data)
     nodes = list(nodes_dict.values())
+    t = 26
 
     for node in nodes:
         all_distances = dijkstra(nodes, node)
         node.distances = {n: d for n, d in all_distances.items() if n.flow_rate > 0 and n != node}
 
     start_node = nodes_dict['AA']
-    all_single_paths = dfs(start_node, 26)
-    print('Generated', len(all_single_paths), 'single paths')
-
-    all_paths = []
-    for p1, p2 in itertools.combinations(all_single_paths, 2):
-        # print('Checking', p1, p2)
-        if set(p1).isdisjoint(set(p2)):
-            all_paths.append((p1, p2))
-    print('Generated', len(all_paths), 'combined paths')
-
-    best_score = max([path_score([start_node, *p1], 26) + path_score([start_node, *p2], 26) for p1, p2 in all_paths])
-    print('Returning best score:', best_score)
+    all_paths = dfs2(start_node, t)
+    # print('Generated', len(all_paths), 'paths')
+    best_score = max([path_score(p1, t) + path_score(p2, t) for p1, p2 in all_paths])
+    # print('Returning best score:', best_score)
     return best_score
 
 

@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 
 # Day 17: Pyroclastic Flow
 
@@ -15,13 +15,12 @@ class Coord:
     def __init__(self, x: int, y: int):
         self.x: int = x
         self.y: int = y
-        self.pair: Tuple[int, int] = (x, y)
 
     def add(self, other: 'Coord'):
         return Coord(self.x + other.x, self.y + other.y)
 
     def __str__(self):
-        return str(self.pair)
+        return str((self.x, self.y))
 
     def __repr__(self):
         return self.__str__()
