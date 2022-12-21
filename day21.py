@@ -71,21 +71,23 @@ def part2(data: List[str]):
             monkey_a, monkey_b = monkey_dict[a], monkey_dict[b]
             break
 
-
-    value1 = 1
-    value2 = 2
-    count = 0
-    i = 0
-    while value1 != value2:
-        i -= 1
-        count += 1
+    # Bisect answer
+    i = 1
+    factor = 10
+    increment = 1
+    while True:
         monkey_dict['humn'].value = i
-        value1 = monkey_a.get_value()
-        value2 = monkey_b.get_value()
-        if count % 1000 == 0:
-            print(f'i = {i}, {value1} {value2}')
+        value1, value2 = monkey_a.get_value(), monkey_b.get_value()
 
-    return i
+        if value1 == value2:
+            return i
+        elif value1 > value2:
+            increment *= factor
+            i += increment
+        else:
+            i -= increment
+            increment //= 2
+            i += increment
 
 
 def main():
@@ -97,8 +99,8 @@ def main():
     part1_result = part1(data)
     assert part1_result == 170237589447588, f'Part 1 returned {part1_result}'
 
-    #part2_test_result = part2(test_data)
-    #assert part2_test_result == 301, f'Part 2 test input returned {part2_test_result}'
+    # part2_test_result = part2(test_data)
+    # assert part2_test_result == 301, f'Part 2 test input returned {part2_test_result}'
     part2_result = part2(data)
     assert part2_result == 3712643961892, f'Part 2 returned {part2_result}'
 
