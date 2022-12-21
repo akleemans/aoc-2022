@@ -158,3 +158,13 @@ class Coord:
 
 Rewrite using iterative approach (queue) is always possible.
 
+---
+
+* Using `next` to get first iterator item (Day 20)
+
+```python
+zero_item = next(i for i in all_items if i.n == 0)
+```
+
+---
+
