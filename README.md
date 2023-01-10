@@ -4,35 +4,35 @@ My solution for [Advent of Code 2022](https://adventofcode.com/2022) in Python 3
 
 ## Execution times
 
-All code in Python 3, timed with `run_all.py`:
+All code in Python 3, timed with `python3 run_all.py`:
 
-| Day    | Time    |
-|--------|---------|
-| Day 1  | 0.002s  |
-| Day 2  | 0.004s  |
-| Day 3  | 0.002s  |
-| Day 4  | 0.005s  |
-| Day 5  | 0.003s  |
-| Day 6  | 0.006s  |
-| Day 7  | 0.006s  |
-| Day 8  | 0.778s  |
-| Day 9  | 0.307s  |
-| Day 10 | 0.001s  |
-| Day 11 | 2.094s  |
-| Day 12 | 0.789s  |
-| Day 13 | 0.031s  |
-| Day 14 | 1.938s  |
-| Day 15 | 9.877s  |
-| Day 16 | 63.793s |
-| Day 17 | 0.684s  |
-| Day 18 | 14.208s |
-| Day 19 |         |
-| Day 20 |         |
-| Day 21 |         |
-| Day 22 |         |
-| Day 23 |         |
-| Day 24 |         |
-| Day 25 |         |
+| Day    | Time      |
+|--------|-----------|
+| Day 1  | 0.002s    |
+| Day 2  | 0.004s    |
+| Day 3  | 0.002s    |
+| Day 4  | 0.005s    |
+| Day 5  | 0.003s    |
+| Day 6  | 0.006s    |
+| Day 7  | 0.006s    |
+| Day 8  | 0.778s    |
+| Day 9  | 0.307s    |
+| Day 10 | 0.001s    |
+| Day 11 | 2.094s    |
+| Day 12 | 0.789s    |
+| Day 13 | 0.031s    |
+| Day 14 | 1.938s    |
+| Day 15 | 9.877s    |
+| Day 16 | 63.893s   |
+| Day 17 | 0.684s    |
+| Day 18 | 16.043s   |
+| Day 19 | 415.912s  |
+| Day 20 | 16.844s   |
+| Day 21 | 0.054s    |
+| Day 22 | 0.165s    |
+| Day 23 | 6995.641s |
+| Day 24 | 6.917s    |
+| Day 25 | 0.006s    |
 
 ## Learned along the way
 

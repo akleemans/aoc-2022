@@ -26,14 +26,12 @@ class Coord:
         return self.__str__()
 
     def __eq__(self, other):
-        # return (self.x, self.y).__eq__((other.x, other.y))
         if other is None:
             return False
         return self.x == other.x and self.y == other.y
 
     def __hash__(self):
         return (self.x, self.y).__hash__()
-        # return self.x * 10**4 + self.y
 
 
 def get_elves(data) -> List[Coord]:
@@ -47,7 +45,7 @@ def get_elves(data) -> List[Coord]:
 
 
 def get_possible_move(elf, elves, directions) -> Optional[Coord]:
-    # Check if elf has neighbors, if not,
+    # Check if elf has neighbors, if not, don't move at all
     neighbors = 0
     for d in [Coord(x, y) for x in [-1, 0, 1] for y in [-1, 0, 1] if (x, y) != (0, 0)]:
         target = elf.add(d)
@@ -66,7 +64,6 @@ def get_possible_move(elf, elves, directions) -> Optional[Coord]:
         if target not in elves and a not in elves and b not in elves:
             # print('Elf', elf, 'will try to move to', target)
             # print(f'{target} not in {elves}', target not in elves)
-            # input()
             return target
     return None
 
@@ -90,8 +87,6 @@ def execute_moves(elves: List[Coord], propositions: Dict[Coord, Coord]) -> bool:
             moved = True
             elves.remove(elf)
             elves.append(target)
-        # else:
-        #    print(f'Elf {elf} doesnt move')
     return moved
 
 
@@ -124,9 +119,9 @@ def part1(data: List[str]):
     directions = [Coord(0, -1), Coord(0, 1), Coord(-1, 0), Coord(1, 0)]
 
     for round in range(10):
-        print(f'Round {round}, dirs={directions}')
+        # print(f'Round {round}, dirs={directions}')
         propositions = get_propositions(elves, directions)
-        elves = execute_moves(elves, propositions)
+        execute_moves(elves, propositions)
 
         d = directions.pop(0)
         directions.append(d)
